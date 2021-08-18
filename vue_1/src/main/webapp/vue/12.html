@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>12</title>
+</head>
+<body>
+    <div id="app">
+        <h1 v-text="msg"> v-model </h1>
+        <input type="text" v-model="msg"/>
+
+        <form action="">
+
+            用户名：<input type="text" class="text" v-model="users.username"><br>
+            密码：<input type="text" class="text" v-model="users.password"><br>
+            邮箱：<input type="text" class="text"><br>
+            验证码：<input type="text" class="text"><br>
+
+            <input type="button" @click="register" value="注册">  </input>
+        </form>
+
+    </div>
+</body>
+</html>
+
+<!--
+    v-model
+    1.作用：用来将HTML的value属性进行绑定，交给vue实例管理。单一（主要用在表单元素）
+      比较：前面v-bind是把除了value属性都可以交给vue，比较强大
+    2.最能体现双向绑定机制的一个指令
+    3.语法：在表单元素标签上，直接加入v-model="vue实例中的一个变量"
+    4.MVVM双向绑定机制
+        - el
+        - data 就是model模型
+        - view 页面上展示的变量
+        - data <==> view 相互改变，中间就是viewmodel来操作的，实现两边绑定（同步）
+        - 上面这些通过页面可以看到结果
+      用处：在进行表单注册的时候，不需要通过id来获取值再传参到控制器，现在直接就能拿到了
+-->
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:12,
+            // username:"",
+            // password:"",
+            users:{},
+            user:{id:21, name:"yjiewei", age:23},
+            schools:["二中","三中","八中"],
+            customs:[
+                    {id:21, name:"yjiewei", age:23},
+                    {id:22, name:"nihao ", age:27},
+                    {id:23, name:"gou a", age:29},
+                    {id:24, name:"yjiewei", age:30}
+                ]
+        },
+        methods:{
+            register(){
+                // 1.获取表单数据
+
+                // 2.发送ajax请求
+
+                // 模仿发送请求
+                // console.log(this.username);
+                // console.log(this.password);
+                console.log(this.users);
+                // $.post(url, {username:this.username, password:this.password})
+            }
+        }
+    })
+</script>

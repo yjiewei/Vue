@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06</title>
+</head>
+<body>
+    <div id="app">
+        <h1>vue钩子生命周期</h1>
+        <h1 id="h1">{{msg}}</h1>
+        <input type="text" v-model="msg">
+    </div>
+</body>
+</html>
+<!--
+    vue实例在生命周期过程中官方提供一系列生命周期函数
+    钩子：这些生命周期最大的特点就是伴随着vue实例创建，使用，销毁，过程的自动触发，
+         不需要手动调用。
+    使用：1.初始化
+         2.运行
+         3.销毁
+-->
+<!-- 严格标签 -->
+<script src="js/vue.js"></script>
+
+<!-- 书写vue的代码要另起一对标签 -->
+<script>
+
+    var app = new Vue({
+        el: "#app",
+        data: {
+            msg:"vue的生命周期"
+        },
+        methods:{
+
+        },
+        beforeCreate(){ // 第一个生命周期函数
+            console.log(this.msg); // 这里输出不了，data还没有被初始化呢，提示undefined
+        },
+        created(){ // 第二个生命周期函数
+            console.log(this.msg);
+        },
+        beforeMount(){
+            // 第三个，还没有渲染
+            console.log(document.getElementById("h1").innerText);
+        },
+        mounted(){
+            // 第四个，数据渲染完成
+            console.log(document.getElementById("h1").innerText);
+        },
+        // 初始化结束
+        // 运行阶段开始了
+        beforeUpdate(){ // 运行阶段的第一个函数，data数据修改但是页面还没有替换
+            console.log(this.msg); // 已修改
+            console.log(document.getElementById("h1").innerText); // 未修改
+        },
+        updated(){
+            console.log(this.msg); // 已修改
+            console.log(document.getElementById("h1").innerText); // 已修改
+        },
+        beforeDestroy(){
+            console.log("开始销毁前的准备了...");
+        },
+        destroy(){
+            console.log("全部销毁..");
+        }
+
+
+    })
+
+</script>

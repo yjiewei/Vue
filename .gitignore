@@ -1,0 +1,4 @@
+# Project exclude paths
+/vue_1/target/
+/vue_2/target/
+/vue_3/target/

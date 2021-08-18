@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03</title>
+</head>
+<body>
+    <div id="app">
+        <h1> {{ msg }}---</h1>
+        <h1 v-text="msg">123</h1>
+        <h1 v-html="msg">456</h1>
+    </div>
+</body>
+</html>
+
+<!--
+
+    1.v-html
+      v-text
+      虽然看起来和双大括号一样，但是！！v-text v-html会取代原始数据，
+      而双大括号相当于变量，也叫插值表达式
+    2.{{}}存在插值闪烁，另外两个不存在，什么是插值闪烁，就你可能看到{{msg}}，后面才出现对应的值
+    3.v-text是直接渲染到标签上，而v-html是先解析HTML标签，然后再渲染，innerText  innerHtml的区别
+-->
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:"<I>hello yjiewei</I>"
+        }
+    })
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>11</title>
+</head>
+<body>
+    <div id="app">
+        <h1> 遍历对象</h1>
+        <h2 v-for="value,key,index in user">{{index}} - {{key}} - {{value}}</h2>
+        <h1> 遍历数组 </h1>
+        <ul>
+            <h2><li v-for="item, index in schools">{{ index }} - {{item}} </li></h2>
+        </ul>
+        <h1> 遍历数组中的对象 </h1>
+        <table border="1" width="100%">
+            <tr>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="customer, index in customs" :key="customer.id">
+                <td v-text="customer.id"></td>
+                <td v-html="customer.name"></td>
+                <td>{{ customer.age }}</td>
+                <td align="center"><a href="" class="href"> 删除 </a> <a href="" class="href"> 修改 </a></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+
+<!--
+    v-for指令
+   作用：用来在页面中实现vue中定义数据的遍历
+   语法：直接在对应的标签上加入v-for指令  v-for=" in user"
+        a.遍历对象：v-for="value, key, index in data中的变量"
+        b.遍历数组：v-for="item, index in data中的变量名"
+        c.遍历数组中的对象时：v-for="item(对象), index in data中的变量名"
+            - v-bind:key="item.id" 对于页面没有什么作用，是给vue使用的，可以跟踪每个节点的身份。
+-->
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:12,
+            user:{id:21, name:"yjiewei", age:23},
+            schools:["二中","三中","八中"],
+            customs:[
+                    {id:21, name:"yjiewei", age:23},
+                    {id:22, name:"nihao ", age:27},
+                    {id:23, name:"gou a", age:29},
+                    {id:24, name:"yjiewei", age:30}
+                ]
+        },
+        methods:{
+        }
+    })
+</script>

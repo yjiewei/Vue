@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>10</title>
+</head>
+<body>
+    <div id="app">
+        <h1> {{ msg }}</h1>
+        <img width="200px" v-bind:src="src" @mouseover="seeBeauty" @mouseout="seeAO"/> <!--显示不同的图片，他的高度宽度可能也需要修改-->
+        <img width="200px" :src="src" @mouseover="seeBeauty" @mouseout="seeAO"/> <!--显示不同的图片，他的高度宽度可能也需要修改-->
+        <button @click="seeBeauty">我想要看美女</button>
+    </div>
+</body>
+</html>
+
+<!--
+    v-bind 绑定命令
+    作用：用来绑定HTML标签中某个属性交给vue实例进行管理
+    好处：一旦属性交给vue实例进行管理之后，日后可以通过修改vue实例中绑定的属性达到动态修改标签属性的效果
+    语法：对应标签上 v-bind: 属性名
+    属性名的值也可以使用表达式，属性都可以
+
+    强大之处：就你可以让任何css样式，标签都进行双向绑定 src width alt class
+
+    v-bind的简化写法
+    直接：
+    v-bind:class="cls"  ==> :class="cls"
+-->
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:12,
+            isShow:true,
+            src:"https://img1.baidu.com/it/u=3130333009,1944897235&fm=26&fmt=auto&gp=0.jpg"
+        },
+        methods:{
+            seeBeauty(){
+                this.src="https://ss0.baidu.com/94o3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/6d81800a19d8bc3e31281963818ba61ea8d34572.jpg"
+            },
+            seeAO(){
+                this.src = "https://img1.baidu.com/it/u=3130333009,1944897235&fm=26&fmt=auto&gp=0.jpg";
+            }
+        }
+    })
+</script>

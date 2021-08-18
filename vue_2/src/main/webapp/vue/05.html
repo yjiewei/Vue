@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>05</title>
+</head>
+<body>
+    <div id="app">
+        <h1>Axios的基本使用</h1>
+    </div>
+</body>
+</html>
+<!--
+    异步请求 多种方式
+    axios.get("url").then(function (response) {}).catch(function (error) {})
+    axios.post("url").then(function (response) {}).catch(function (error) {})
+    axios.put("url").then(function (response) {}).catch(function (error) {})
+    axios.patch("url").then(function (response) {}).catch(function (error) {})
+    你每一个请求都这么写，那不是很麻烦，很多重复的东西。
+    创建Axios的配置对象，通过这个对象简化请求.
+
+    axios拦截器：请求拦截器（公共参数处理 比如携带token）  响应拦截器（响应拦截器）看官网很清楚
+    // 添加请求拦截器
+    axios.interceptors.request.use(function (config) {
+        // 在发送请求之前做些什么
+        return config;
+      }, function (error) {
+        // 对请求错误做些什么
+        return Promise.reject(error);
+    });
+
+    // 添加响应拦截器
+    axios.interceptors.response.use(function (response) {
+        // 对响应数据做点什么
+        return response;
+      }, function (error) {
+        // 对响应错误做点什么
+        return Promise.reject(error);
+    });
+-->
+<!-- 严格标签 -->
+<script src="js/axios.min.js"></script>
+
+<!-- 书写vue的代码要另起一对标签 -->
+<script>
+/*
+    // 发送axios的get方式请求
+    axios.get("http://localhost:8080/test1?id=1&name=yjiewei").then(function (response) { // 正确
+        console.log(response);
+        console.log(response.data);
+    }).catch(function (error) { // 错误
+        // 当你请求异常时或者请求失败时就到这里
+        console.log(error);
+    })
+  */
+    // 执行 POST 请求 post传参要用json
+    axios.post('http://localhost:8080/test2', {id:21, name:"yjiewei"})
+    .then(function (response) {
+        // console.log(response);
+        // console.log(response.data);
+    })
+    .catch(function (error) {
+        console.log(error);
+    });
+
+
+    var instance = axios.create({
+        baseURL:"http://localhost:8080/",
+        timeout:5000
+    });
+
+    // 给实例添加请求拦截器，这样就不用每个接口传token了啊
+    instance.interceptors.request.use(function (config) {
+        // 在发送请求之前做些什么
+        console.log("request");
+        if (config.url.indexOf("?") === -1){
+            config.url += "?token=yjiewei";
+        }else {
+            config.url += "&token=yjiewei";
+        }
+        // console.log(config);
+        return config;
+    }, function (error) {
+        // 对请求错误做些什么
+        return Promise.reject(error);
+    });
+
+    // 添加响应拦截器
+    instance.interceptors.response.use(function (response) {
+        // 对响应数据做点什么
+        response.data = "直接被修改";
+        console.log(response);
+        if (response.status === 500) {
+            alert("服务器出错啦，请稍后再试");
+        }
+        return response;
+    }, function (error) {
+        // 对响应错误做点什么
+        return Promise.reject(error);
+    });
+
+    instance.get("test1?id=1&name=yjiewei").then(function (response) {
+        // console.log(response.data);
+    }).catch(function (error) {
+        console.log(error);
+    })
+</script>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>04</title>
+</head>
+<body>
+    <div id="app">
+        <h1> {{ msg }}</h1>
+        <button v-on:click="test">on点击事件</button>
+    </div>
+</body>
+</html>
+
+<!--
+    1.v-on 是用来给页面上的标签绑定事件用的，动起来
+    2.js中的事件是 event，
+        - 事件源：标签
+        - 事件：onclick  ondbclick onchange  onmouseover keyup...
+        - 监听器：事件处理程序，事件处理函数 function(){}
+    3.v-on 就是用来给页面标签绑定事件的， v-on:事件名="事件处理函数"
+-->
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:"<I>hello yjiewei</I>"
+        },
+        methods:{
+            test:function () {  /*声明函数*/
+                alert('vue中test');
+            }
+        }
+    })
+</script>

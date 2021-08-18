@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>07</title>
+</head>
+<body>
+    <div id="app">
+        <h1 v-if="true"> {{ msg }}</h1>
+        <h1 v-show="isShow"> {{ msg }}</h1>
+    </div>
+</body>
+</html>
+
+<!--
+    控制页面标签是否隐藏或者显示，通过这两个指令
+    1.v-if="bool"
+    2.v-show="true / false"
+    3.通常用的时候不会直接使用写死的值，
+        更多情况下使用一个表达式，
+        逻辑运算、
+        交给vue去管理
+    4.两个标签的区别是什么？
+        - 底层控制原理不一样（v-if底层通过控制dom树的节点页面标签来控制展示和隐藏）  dom树
+        - v-show底层是通过控制标签css中的display属性来实现标签的展示和隐藏   css样式
+        - 如果经常变换，最好使用v-show，通过css来操作，dom树经常变换肯定效果没那么好，v-if的切换开销大，v-show的渲染开销大
+
+-->
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:12,
+            isShow:true
+        },
+        methods:{
+
+        }
+    })
+</script>

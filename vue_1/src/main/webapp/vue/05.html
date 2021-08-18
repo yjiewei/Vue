@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>05</title>
+</head>
+<body>
+    <div id="app">
+        <h1> {{ msg }}</h1>
+        <button v-on:mouseover="test">on点击事件</button>
+    </div>
+</body>
+</html>
+
+<!--
+    1.类似于js，你可以增加多个事件
+    2.MVVM 双向绑定机制  model < == > viewmodel  < == > view
+      model可以理解为下面的data，view可以看做是页面展示的数据，model中的数据修改view也得跟着改
+    3.vue中的this代码的vue实例
+-->
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:12
+        },
+        methods:{
+            test:function () {  /*声明函数*/
+                /*alert('vue中test');*/
+                this.msg += 1;
+            }
+        }
+    })
+</script>

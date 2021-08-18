@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>09</title>
+</head>
+<body>
+    <div id="app">
+        <h1> {{ msg }}</h1>
+        <div style="width: 200px;height: 200px;background: aquamarine" v-show="isShow" @mouseover="hideDev"></div>
+    </div>
+</body>
+</html>
+
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:12,
+            isShow:true
+        },
+        methods:{
+            hideDev(){
+                this.isShow=false;
+            }
+        }
+    })
+</script>

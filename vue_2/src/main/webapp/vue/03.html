@@ -1,0 +1,64 @@
+<!--简单入门-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03事件修饰符</title>
+</head>
+<body>
+    <div id="app">
+        <!--事件冒泡，你点击子div，父div也会被触发，冒泡被捕获，现在希望它不要冒泡，要阻止 @click.stop-->
+        <h2>stop事件修饰符</h2>
+        <div style="width: 200px; height: 200px; background: yellow" @click="parent">
+            <div style="width: 100px; height: 100px; background: red" @click.stop="child"></div>
+        </div>
+
+        <h2>prevent修饰符</h2><!--先点击事件，再触发默认事件，如果不想要默认的，可以用prevent-->
+        <a href="http://www.baidu.com" @click.prevent="testa">点击我</a>
+
+        <!--事件冒泡，你点击子div，父div也会被触发，现在用一个self来告诉他，别人冒泡你别管，不要自作多情-->
+        <h2>self事件修饰符</h2>
+        <div style="width: 200px; height: 200px; background: yellow" @click.self="parent">
+            <div style="width: 100px; height: 100px; background: red" @click="child"></div>
+        </div>
+
+        <h2>once修饰符</h2><!--你只能触发他一次，后面就失效了，不知道有什么实用场景-->
+        <button @click.once="testa">点击我</button>
+    </div>
+</body>
+</html>
+<!--
+    事件修饰符
+    .stop     作用：用来阻止事件冒泡，防止往外传递
+    .prevent  作用：用来阻止标签的默认行为
+    .self     作用：只监听自身标签触发的事件
+    .once     作用：该事件只触发一次
+
+    语法： @事件名.事件修饰符="事件处理函数" =====>  @click.stop="test"
+-->
+<!-- 严格标签 -->
+<script src="js/vue.js"></script>
+<!-- 书写vue的代码要另起一对标签 -->
+<script>
+    // 创建一个vue实例
+    new Vue({
+        // 这里挂载的是id选择器，如果用其他选择器也是可以的，比如.class，但是推荐使用id选择器，id不能重复
+        el:"#app", //  el:element元素，代表vue实例的作用范围
+        data:{
+
+        },
+        methods:{
+            parent(){
+                console.log("this is parent");
+            },
+            child(){
+                console.log("this is child");
+            },
+            testa(){
+                console.log("到底输出谁")
+            }
+        },
+        computed:{ // 计算属性
+        }
+    });
+</script>

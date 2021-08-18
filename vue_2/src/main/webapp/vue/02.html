@@ -1,0 +1,123 @@
+<!--简单入门-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02购物车案例之computed</title>
+</head>
+<body>
+    <div id="app">
+
+        <!--
+            computed 计算属性
+            作用：用在vue中的相关业务计算工作，日后在将某个数据渲染页面
+                 如果该数据需要多次业务处理之后渲染就可以使用computed
+            好处：提升vue的运行性能，使用computed进行计算相关的额处理，计算完就会缓存
+                 方便日后使用
+        -->
+
+        <h1>{{msg}}</h1>
+        <h1>{{counts}} {{counts}} {{counts}}</h1> <!--这里调用的时候相比于方法，computed就不需要括号，直接就使用-->
+        <!--这个名字还得对应上，不然会乱了就出错了-->
+        编号：<input type="text" v-model="item.id"><br>
+        名称：<input type="text" v-model="item.name"><br>
+        价格：<input type="text" v-model="item.price"><br>
+        数量：<input type="text" v-model="item.count"><br>
+        <button @click="addCart">添加到购物车</button>
+        <br>
+        <br>
+        <br>
+
+        <table border="1">
+            <tr>
+                <th>编号</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>购买数量</th>
+                <th>小计</th>
+            </tr>
+            <tr v-for="(item, index) in items" :key="item.id">
+                <td>{{item.id}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.price}}</td>
+                <td><input type="button" value="-" @click="decrement(index)">{{item.count}}<input type="button" value="+" @click="increment(index)"></td>
+                <td>{{(item.price  *  item.count).toFixed(2)}}</td> <!--保留两位小数-->
+            </tr>
+        </table>
+
+        <!--利用缓存提高性能-->
+        <h2>总价格：{{ totalPrice.toFixed(2) }}元</h2>
+        <h2>总价格：{{ totalPrice.toFixed(2) }}元</h2>
+        <h2>总价格：{{ totalPrice.toFixed(2) }}元</h2>
+
+    </div>
+</body>
+</html>
+
+<!--
+    购物车案例之computed
+    1.通过方法来计算总价值，但是不推荐，最好用computed
+    2.如果使用方法来计算，页面有重复值时会多次计算，肯定不合适
+
+-->
+
+<!-- 严格标签 -->
+<script src="js/vue.js"></script>
+<!-- 书写vue的代码要另起一对标签 -->
+<script>
+    // 创建一个vue实例
+    new Vue({
+        // 这里挂载的是id选择器，如果用其他选择器也是可以的，比如.class，但是推荐使用id选择器，id不能重复
+        el:"#app", //  el:element元素，代表vue实例的作用范围
+        data:{
+            msg:"购物车案例之computed",
+            items:[
+                {id:1, name:"iPhone x", price:19.9, count:1},
+                {id:2, name:"iPhone xs", price:19.9, count:2},
+                {id:3, name:"iPhone xr", price:19.9, count:1},
+                {id:4, name:"iPhone x pro", price:19.9, count:1}
+            ],
+            item:{},
+            count:2
+        },
+        methods:{
+            decrement(index){
+                if (this.items[index].count === 0) {
+                    return false;
+                }
+                this.items[index].count -= 1;
+            },
+            increment(index){
+                this.items[index].count += 1;
+            },
+            addCart(){
+                console.log("害 多大点事");
+                console.log(this.item);
+                // this.items.push(this.item);
+                /*直接添加还有很多问题，空值，主键重复*/
+                if (!this.item.id || !this.item.name || !this.item.price || !this.item.count ) {
+                    alert("请输入完整信息");
+                    return false;
+                }
+                if (!(this.item.count > 0)) { // 这个拼在后面为什么不能正确显示呢？
+                    alert("数量不对");
+                    return false;
+                }
+                this.items.push(this.item);
+            }
+        },
+        computed:{ // 计算属性
+            counts(){
+                console.log("computed log");
+                return this.count+10;
+            },
+            totalPrice(){
+                var total = 0;
+                for (var i = 0; i < this.items.length; i++){
+                    total = total + this.items[i].count * this.items[i].price;
+                }
+                return total;
+            }
+        }
+    });
+</script>

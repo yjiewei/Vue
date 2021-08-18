@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>1_员工列表</title>
+</head>
+<body>
+
+    <div id="app">
+        <h1>{{msg}}</h1>
+        <table border="1" width="90%">
+            <tr>
+                <th>编号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>工资</th>
+                <th>操作</th>
+            </tr>
+            <tr v-for="emp, index in emps" style="text-align: center" :key="emp.id">
+                <td>{{ emp.id }}</td>
+                <td>{{ emp.name }}</td>
+                <td>{{ emp.age }}</td>
+                <td>{{ emp.salary }}</td>
+                <td><center><a @click="deleteRow(emp.id)" href="javascript:;">删除</a>-<a href="javascript:;">修改</a></center></td>
+            </tr>
+        </table>
+        <br>
+        <button>添加</button>
+        <br>
+        <br>
+        <form action="">
+            编号：<input type="text"> <br>
+            姓名：<input type="text"> <br>
+            年龄：<input type="text"> <br>
+            工资：<input type="text"> <br><br>
+            <input type="button" value=" 保存|修改 ">
+        </form>
+    </div>
+
+</body>
+</html>
+
+<script src="js/vue.js"></script>
+<script src="js/axios.min.js"></script>
+<script>
+
+    var app = new Vue({
+        el: "#app",
+        data:{
+            msg:"yjiewei",
+            emps: [
+
+            ]
+        },
+        methods:{
+            deleteRow(id){
+                if (window.confirm("确定要删除吗？")) {
+                    var _this = this;
+                    axios.delete("http://localhost:8001/emps/"+id).then(function (res) {
+                        _this.findAll();
+                    }).catch(function(error){
+                        alert("删除员工出错，稍后再试。");
+                    })
+                }
+            },
+            findAll(){
+                var _this = this;
+                axios.get("http://localhost:8001/emps").then(function (res) {
+                    // 这里this变成了window对象
+                    console.log(res.data);
+                    _this.emps = res.data;
+                }).catch(function(error){
+                    alert("查询员工出错，稍后再试。");
+                })
+            }
+        },
+        computed:{
+
+        },
+        // 初始化阶段beforeCreate  created  ...，运行阶段，销毁阶段
+        created(){
+            // this.emps=[{id:1, name:"yjiewei", age:23, salary:9998}, {id:1, name:"yjiewei", age:23, salary:9998}]
+            // 发送axios请求去访问后台接口获取数据，这里是初始化的第二个阶段
+            this.findAll();
+        }
+    });
+
+</script>

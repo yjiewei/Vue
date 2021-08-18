@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>08</title>
+</head>
+<body>
+    <div id="app">
+        <h1 v-show="isShow"> {{ msg }}</h1>
+        <button @click="hideMsg">隐藏信息</button>
+        <button v-on:click="showMsg">展示信息</button>
+        <button v-on:click="showhide">反转1</button>
+        <button v-on:click="isShow=!isShow">反转2</button> <!--不常用-->
+    </div>
+</body>
+</html>
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:12,
+            isShow:true
+        },
+        methods:{
+            hideMsg(){
+                this.isShow=false;
+            },
+            showMsg:function () {
+                this.isShow=true;
+            },
+            showhide(){
+                this.isShow=!this.isShow;
+            }
+        }
+    })
+</script>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>06</title>
+</head>
+<body>
+    <div id="app">
+        <h1> 年龄：{{ msg }} {{shit}}</h1>
+        <button v-on:click="increment(20)" >增加20岁</button>
+        <button @click="increment2(20, 'yjiewei')" >增加20岁</button>
+    </div>
+</body>
+</html>
+
+<!--
+    在函数中传递参数
+    1.比如根据id删除，你不可能每次都固定一个值去删除吧
+    2.简化写法 用@和v-on是一样的
+    3.函数简化：去掉 :function
+-->
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            msg:12,
+            shit:'what'
+        },
+        methods:{
+            increment:function(count){
+                this.msg += count;
+            },
+            increment2(count, text){
+                this.msg += count;
+                this.shit = "yjiewei";
+            }
+        }
+    })
+</script>

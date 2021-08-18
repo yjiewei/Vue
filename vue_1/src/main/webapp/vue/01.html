@@ -1,0 +1,42 @@
+<!--简单入门-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>vue的第一个应用</title>
+</head>
+<body>
+    <div id="app">
+        <h1>小杨</h1>
+        <h1>{{msg}}</h1>
+        <h1>{{content.toUpperCase()}}</h1>
+        <h1>{{content === "yjiewei"}}</h1>
+        <h1>{{content.length}}</h1>
+    </div>
+</body>
+</html>
+
+<!--
+    1.挂载对象el
+    2.data内部数据取值使用双大括号
+    3.vue.js脚本的位置放在页面元素后面，加载顺序才对
+    4.data内部数据的作用域是在挂载对象标签内部
+    5.data内部数据算数运算，字符串操作
+    6.一个页面只能存在一个vue对象
+    7.挂载的是id选择器，其他选择器比如.class也是可以的，但是推荐使用id选择器，id不能重复
+-->
+
+<!-- 严格标签 -->
+<script src="js/vue.js"></script>
+<!-- 书写vue的代码要另起一对标签 -->
+<script>
+    // 创建一个vue实例
+    new Vue({
+        // 这里挂载的是id选择器，如果用其他选择器也是可以的，比如.class，但是推荐使用id选择器，id不能重复
+        el:"#app", //  el:element元素，代表vue实例的作用范围
+        data:{
+            msg:"小样",
+            content:"yjiewei"
+        }
+    });
+</script>

@@ -1,0 +1,40 @@
+<!--data属性定义对象、数据相关-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>data中定义对象、数据</title>
+</head>
+<body>
+    <div id="app">
+        <!--获取对象数据-->
+        <h1> {{user}}</h1>
+        <h1> {{user.name}}</h1>
+        <h1> {{user.age}}</h1>
+        <h1> {{shoes[0]}}</h1>
+        <h1> {{msg.length + 1}}</h1>
+    </div>
+
+</body>
+</html>
+<!--
+    1.本例子主要讲如何获取对象中的属性
+    2.数组中的属性
+
+-->
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el:"#app", // 指定vue实例的作用范围
+        data:{
+            // 给vue实例定义一系列数据
+            msg:"hello vue",
+            user:{
+                id:1,
+                name:"yjiewei",
+                age:23
+            },
+            shoes:["AF1", "匡威", "AJ4"]
+        }
+    })
+</script>

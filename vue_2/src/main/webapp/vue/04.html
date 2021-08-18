@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>04按键修饰符</title>
+</head>
+<body>
+    <div id="app">
+        keyup: <input type="text" v-model="name" @keyup="keyup"> <br>
+        enter: <input type="text" v-model="name" @keyup.enter="keyup"><br>
+        tab:   <input type="text" v-model="name" @keyup.tab.delete.esc.space.up.down.left.right="keyup">
+    </div>
+</body>
+</html>
+
+<!--
+    按键修饰符，只能对键盘上的按键进行修饰，keyup keydown 回车 删除 esc ...
+-->
+
+<!-- 严格标签 -->
+<script src="js/vue.js"></script>
+<!-- 书写vue的代码要另起一对标签 -->
+<script>
+    // 创建一个vue实例
+    new Vue({
+        // 这里挂载的是id选择器，如果用其他选择器也是可以的，比如.class，但是推荐使用id选择器，id不能重复
+        el:"#app", //  el:element元素，代表vue实例的作用范围
+        data:{
+            name:""
+        },
+        methods:{
+            keyup(){
+                console.log(this.name);
+            }
+        }
+    });
+</script>

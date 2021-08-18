@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml"
+      xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>13memo</title>
+</head>
+<body>
+    <div id="app">
+<!--
+        改造memo案例
+        请输入内容: <input type="text"> <button>添加到备忘录</button> <br>
+
+        <ul>
+            <li>1.今天带你玩 <a href="">删除</a></li>
+            <li>2.明天带你玩 <a href="">删除</a></li>
+            <li>3.后天带你玩 <a href="">删除</a></li>
+        </ul>
+
+        <a href=""> 清空备忘录 </a>
+        <h3>当前备忘录有：3 条</h3>
+-->
+
+        请输入内容: <input type="text" v-model="content"> <button @click="saveMemo">添加到备忘录</button> <br>
+
+        <ul v-if="lists.length!=0">
+            <!-- javascript:; 阻止默认行为 -->
+            <li v-for="(content, index) in lists"> {{ index + 1}}.{{content}} <a href="javascript:;" @click="delContent(index)">删除</a></li>
+        </ul>
+
+        <ul v-if="lists.length==0">
+            <li><span style="color: red">当前备忘录中还没有任何数据！</span></li>
+        </ul>
+
+        <a v-show="lists.length!=0" href="javascript:;" @click="clearContent"> 清空备忘录 </a>
+        <h3>当前备忘录有: {{ lists.length }}条</h3>
+
+    </div>
+</body>
+</html>
+
+<!--
+    备忘录demo
+    其实就是增删改查全部了，比较重要，建议多练几遍
+    为什么页面回重新渲染呢？for循环会去重新循环呢？
+    - https://cn.vuejs.org/v2/guide/list.html#%E6%95%B0%E7%BB%84%E6%9B%B4%E6%96%B0%E6%A3%80%E6%B5%8B
+
+    1.备忘录中的数据要交给vue管理
+    2.添加备忘录
+    3.删除备忘录
+    4.清空备忘录
+    5.备忘录条数查询
+    6.js的判空操作：null  ""  就直接就是false
+-->
+
+<script src="js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el:"#app", /*挂载ID*/
+        data:{     /*绑定数据*/
+            // 1.原始数据
+            lists:[
+                "哎哟喂",
+                "师父怎么能这样呢？"
+            ],
+            content:""
+        },
+        methods:{
+            saveMemo(){
+                if (!this.content) {
+                    alert("麻烦你先添加内容哦");
+                    return false;
+                }
+                this.lists.push(this.content);
+                this.content="";
+            },
+            delContent(index){
+                console.log("触发删除内容");
+                console.log(index);
+                this.lists.splice(index, 1); // 根据下标删除元素，两个参数，起始，个数
+
+            },
+            clearContent(){
+                this.lists=[]; // 其实你直接写在点击函数里面也是可以的。
+            }
+        }
+    })
+</script>
